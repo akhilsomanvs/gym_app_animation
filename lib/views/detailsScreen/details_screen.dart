@@ -11,8 +11,6 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    double collapsedHeight = 80.vdp();
-    double expandedHeight = 200.vdp();
     return Scaffold(
       body: ResponsiveSafeArea(
         builder: (context, size) {
@@ -23,75 +21,82 @@ class DetailsScreen extends StatelessWidget {
             height: _usableHeight,
             child: CustomScrollView(
               slivers: [
-                SliverAppBar(
-                  expandedHeight: expandedHeight,
-                  collapsedHeight: collapsedHeight,
-                  floating: false,
-                  pinned: true,
-                  flexibleSpace: LayoutBuilder(
-                    builder: (context, constraints) {
-                      int _flexValue = 0;
-                      var totalHeight = expandedHeight - collapsedHeight;
-                      var height = constraints.biggest.height - collapsedHeight;
-                      _flexValue = 100 - ((height / totalHeight) * 100).toInt();
-
-                      return Stack(
-                        children: <Widget>[
-                          Positioned.fill(
-                            child: Image.asset(
-                              imageName,
-                              fit: BoxFit.cover,
+                _getSliverAppBar(),
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      Stack(
+                        children: [
+                          Container(
+                            height: 100,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF4F9D82),
                             ),
-                          ),
-                          Positioned.fill(
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(flex: _flexValue, child: const SizedBox(height: 0)),
-                                    Text(
-                                      title,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24.0,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const Expanded(flex: 100, child: SizedBox(height: 0)),
-                                  ],
-                                ),
-                              ),
+                            child: Text(
+                              "Something",
+                              style: TextStyle(color: Colors.white, fontSize: 24),
                             ),
                           ),
                         ],
-                      );
-                    },
-                  ) /*FlexibleSpaceBar(
-                    centerTitle: true,
-                    title: const Text(
-                      "Collapsing Toolbar",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    background: Image.network(
-                      "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
-                      fit: BoxFit.cover,
-                    ),
-                  )*/
-                  ,
-                ),
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [],
+                      )
+                    ],
                   ),
                 )
               ],
             ),
+          );
+        },
+      ),
+    );
+  }
+
+  SliverAppBar _getSliverAppBar() {
+    double collapsedHeight = 80.vdp();
+    double expandedHeight = 200.vdp();
+    return SliverAppBar(
+      expandedHeight: expandedHeight,
+      collapsedHeight: collapsedHeight,
+      floating: true,
+      pinned: true,
+      flexibleSpace: LayoutBuilder(
+        builder: (context, constraints) {
+          int _flexValue = 0;
+          var totalHeight = expandedHeight - collapsedHeight;
+          var height = constraints.biggest.height - collapsedHeight;
+          _flexValue = 100 - ((height / totalHeight) * 100).toInt();
+
+          return Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Image.asset(
+                  imageName,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(flex: _flexValue, child: const SizedBox(height: 0)),
+                        Text(
+                          title,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24.0,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const Expanded(flex: 100, child: SizedBox(height: 0)),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           );
         },
       ),
