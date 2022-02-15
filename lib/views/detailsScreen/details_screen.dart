@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_arch_utils/flutter_arch_utils.dart';
 
 class DetailsScreen extends StatelessWidget {
-  DetailsScreen({Key? key}) : super(key: key);
+  DetailsScreen({Key? key, required this.imageName, required this.title}) : super(key: key);
+  final String imageName;
+  final String title;
 
   double _usableHeight = 0;
 
@@ -36,8 +38,8 @@ class DetailsScreen extends StatelessWidget {
                       return Stack(
                         children: <Widget>[
                           Positioned.fill(
-                            child: Image.network(
-                              "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350",
+                            child: Image.asset(
+                              imageName,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -50,8 +52,8 @@ class DetailsScreen extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Expanded(flex: _flexValue, child: const SizedBox(height: 0)),
-                                    const Text(
-                                      "Collapsing Toolbar",
+                                    Text(
+                                      title,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 24.0,

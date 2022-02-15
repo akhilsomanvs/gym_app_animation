@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DetailsScreen(),
+      home: DetailsScreen(imageName: "assets/images/img_abs.jpeg",title: "Abs",),
     );
   }
 }
