@@ -62,6 +62,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_arch_utils:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "3ecb56892a8d6da397f1363931071aa52fbf302c"
+      url: "git://github.com/akhilsomanvs/flutter_arch_utils.git"
+    source: git
+    version: "0.0.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -172,3 +181,4 @@ packages:
     version: "2.1.1"
 sdks:
   dart: ">=2.16.0 <3.0.0"
+  flutter: ">=1.17.0"
